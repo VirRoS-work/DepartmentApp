@@ -1,17 +1,11 @@
-package com.virros.department.model.entities;
+package com.virros.department.model.dto;
 
+import com.virros.department.model.entities.Employee;
 import com.virros.department.model.types.Gender;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
-@Table(name = "employees")
-public class Employee {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class EmployeeDto {
 
     private String first_name;
 
@@ -19,7 +13,6 @@ public class Employee {
 
     private String father_name;
 
-    @Enumerated(EnumType.STRING)
     private Gender empl_gender;
 
     private LocalDate birthday;
@@ -36,18 +29,12 @@ public class Employee {
 
     private Integer salary;
 
-    private boolean department_head;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "department_id")
-    private Department department;
-
-    public Employee() {
+    public EmployeeDto() {
     }
 
-    public Employee(String first_name, String last_name, String father_name, Gender empl_gender, LocalDate birthday,
-                    String contact_phone, String email, LocalDate date_work_start, LocalDate date_work_end,
-                    String position, Integer salary, boolean department_head, Department department) {
+    public EmployeeDto(String first_name, String last_name, String father_name, Gender empl_gender,
+                       LocalDate birthday, String contact_phone, String email, LocalDate date_work_start,
+                       LocalDate date_work_end, String position, Integer salary) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.father_name = father_name;
@@ -59,16 +46,20 @@ public class Employee {
         this.date_work_end = date_work_end;
         this.position = position;
         this.salary = salary;
-        this.department_head = department_head;
-        this.department = department;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public EmployeeDto(Employee employee){
+        this.first_name = employee.getFirst_name();
+        this.last_name = employee.getLast_name();
+        this.father_name = employee.getFather_name();
+        this.empl_gender = employee.getEmpl_gender();
+        this.birthday = employee.getBirthday();
+        this.contact_phone = employee.getContact_phone();
+        this.email = employee.getEmail();
+        this.date_work_start = employee.getDate_work_start();
+        this.date_work_end = employee.getDate_work_end();
+        this.position = employee.getPosition();
+        this.salary = employee.getSalary();
     }
 
     public String getFirst_name() {
@@ -159,27 +150,10 @@ public class Employee {
         this.salary = salary;
     }
 
-    public boolean isDepartment_head() {
-        return department_head;
-    }
-
-    public void setDepartment_head(boolean department_head) {
-        this.department_head = department_head;
-    }
-
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
-
     @Override
     public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", first_name='" + first_name + '\'' +
+        return "EmployeeDto{" +
+                "first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", father_name='" + father_name + '\'' +
                 ", empl_gender=" + empl_gender +
@@ -190,7 +164,6 @@ public class Employee {
                 ", date_work_end=" + date_work_end +
                 ", position='" + position + '\'' +
                 ", salary=" + salary +
-                ", department_head=" + department_head +
                 '}';
     }
 }

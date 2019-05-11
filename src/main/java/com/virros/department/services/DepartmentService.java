@@ -1,8 +1,8 @@
 package com.virros.department.services;
 
-import com.virros.department.model.entities.Department;
+import com.virros.department.model.dto.DepartmentDto;
 
 public interface DepartmentService {
 
-    Department getDepartment(int id);
+    DepartmentDto getDepartmentDto(int id);
 }

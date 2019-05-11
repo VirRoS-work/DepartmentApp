@@ -20,17 +20,22 @@ public class Department {
     @JoinColumn(name = "parent_id")
     private Department parent_department;
 
-//    @OneToMany(mappedBy = "department")
-//    private List<Employee> employees;
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    private List<Employee> employees;
+
+    @OneToMany(mappedBy = "parent_department", cascade = CascadeType.ALL)
+    private List<Department> sub_departments;
 
     public Department() {
     }
 
-    public Department(String name, LocalDate creation_date, Department parent_department, List<Employee> employees) {
+    public Department(String name, LocalDate creation_date, Department parent_department, List<Employee> employees,
+                      List<Department> sub_departments) {
         this.name = name;
         this.creation_date = creation_date;
         this.parent_department = parent_department;
-//        this.employees = employees;
+        this.employees = employees;
+        this.sub_departments = sub_departments;
     }
 
     public Integer getId() {
@@ -65,13 +70,21 @@ public class Department {
         this.parent_department = parent_department;
     }
 
-//    public List<Employee> getEmployees() {
-//        return employees;
-//    }
-//
-//    public void setEmployees(List<Employee> employees) {
-//        this.employees = employees;
-//    }
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public List<Department> getSub_departments() {
+        return sub_departments;
+    }
+
+    public void setSub_departments(List<Department> sub_departments) {
+        this.sub_departments = sub_departments;
+    }
 
     @Override
     public String toString() {
@@ -79,7 +92,7 @@ public class Department {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", creation_date=" + creation_date +
-//                ", employees=" + employees +
+                ", employees=" + employees +
                 '}';
     }
 }
