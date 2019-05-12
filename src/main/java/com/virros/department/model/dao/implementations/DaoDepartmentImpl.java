@@ -19,7 +19,7 @@ import java.util.Optional;
 public class DaoDepartmentImpl implements DaoDepartment {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    SessionFactory sessionFactory;
 
     @Override
     public void saveDepartment(Department department) {
@@ -27,8 +27,8 @@ public class DaoDepartmentImpl implements DaoDepartment {
     }
 
     @Override
-    public void deleteDepartment(Integer id) {
-
+    public void deleteDepartment(Department department) {
+        getSession().delete(department);
     }
 
     @Override

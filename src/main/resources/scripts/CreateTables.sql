@@ -21,5 +21,5 @@ CREATE TABLE employees(
   position text NOT NULL,
   salary integer NOT NULL CHECK(salary > 0),
   department_head boolean NOT NULL DEFAULT false,
-  department_id integer NOT NULL REFERENCES departments(id) ON DELETE RESTRICT ON UPDATE CASCADE
+  department_id integer REFERENCES departments(id) ON DELETE RESTRICT ON UPDATE CASCADE
 );

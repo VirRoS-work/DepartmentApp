@@ -23,7 +23,8 @@ public class DaoEmployeeImpl implements DaoEmployee{
 
     @Override
     public Optional<Employee> getEmployeeById(Integer id) {
-        return Optional.of(getSession().get(Employee.class, id));
+
+        return Optional.ofNullable(getSession().get(Employee.class, id));
     }
 
     @Override

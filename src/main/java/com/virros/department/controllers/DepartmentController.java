@@ -20,6 +20,15 @@ public class DepartmentController {
     @Autowired
     DepartmentService service;
 
+    @DeleteMapping(value = "/delete/{id}")
+    @ApiOperation("D3 / Удаление департамента. Удаление возможно, только если в нем нет ни одного сотрудника.")
+    public ResponseEntity<?> deleteDepartmentById(@PathVariable Integer id) {
+
+        service.deleteDepartmentById(id);
+
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping(value = "/{id}")
     @ApiOperation(value = "D4 / Просмотр сведений о департаменте по его id.")
     public ResponseEntity<?> getInformationAboutDepartment(@PathVariable Integer id) throws EntityNotFoundException {
@@ -44,6 +53,15 @@ public class DepartmentController {
     public ResponseEntity<?> getInformationAboutSubAllDepartments(@PathVariable Integer id) throws EntityNotFoundException {
 
         List<DepartmentDto> result = service.getSubDepartmentsDtoAll(id);
+
+        return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping(value = "/{id}/over_department_all")
+    @ApiOperation(value = "D8 / Получение информации о всех вышестоящих департаментах данного департамента.")
+    public ResponseEntity<?> getInformationAboutOverAllDepartments(@PathVariable Integer id) throws EntityNotFoundException {
+
+        List<DepartmentDto> result = service.getOverDepartmentDtoAll(id);
 
         return ResponseEntity.ok().body(result);
     }

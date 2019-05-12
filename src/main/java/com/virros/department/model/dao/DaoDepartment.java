@@ -8,7 +8,7 @@ public interface DaoDepartment {
 
     void saveDepartment(Department department);
 
-    void deleteDepartment(Integer id);
+    void deleteDepartment(Department department);
 
     Optional<Department> getDepartmentById(Integer id);
 
