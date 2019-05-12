@@ -1,11 +1,10 @@
 package com.virros.department.model.dto;
 
-import com.virros.department.model.entities.Department;
-import com.virros.department.model.entities.Employee;
-
 import java.time.LocalDate;
 
 public class DepartmentDto {
+
+    private Integer id;
 
     private String name;
 
@@ -18,20 +17,12 @@ public class DepartmentDto {
     public DepartmentDto() {
     }
 
-    public DepartmentDto(String name, LocalDate creation_date, EmployeeDto department_head, Integer number_of_employees) {
+    public DepartmentDto(Integer id, String name, LocalDate creation_date, EmployeeDto department_head, Integer number_of_employees) {
+        this.id = id;
         this.name = name;
         this.creation_date = creation_date;
         this.department_head = department_head;
         this.number_of_employees = number_of_employees;
-    }
-
-    public DepartmentDto(Department department){
-        this.name = department.getName();
-        this.creation_date = department.getCreation_date();
-        this.department_head = department.getEmployees().stream().filter(Employee::isDepartment_head).count() > 0
-                ? new EmployeeDto(department.getEmployees().stream().filter(Employee::isDepartment_head).findFirst().get())
-                : null;
-        this.number_of_employees = department.getEmployees().size();
     }
 
     public String getName() {
@@ -66,10 +57,19 @@ public class DepartmentDto {
         this.number_of_employees = number_of_employees;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "DepartmentDto{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", creation_date=" + creation_date +
                 ", department_head=" + department_head +
                 ", number_of_employees=" + number_of_employees +

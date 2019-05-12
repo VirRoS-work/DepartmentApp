@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -47,7 +48,12 @@ public class DaoDepartmentImpl implements DaoDepartment {
         query.select(root).where(criteriaBuilder.equal(root.get("name"), name));
         Query q = session.createQuery(query);
 
-        return Optional.of((Department) q.getSingleResult());
+        try{
+            Department result = (Department) q.getSingleResult();
+            return Optional.of(result);
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
     }
 
     private Session getSession(){
